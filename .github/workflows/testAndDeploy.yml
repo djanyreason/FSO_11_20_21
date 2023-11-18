@@ -14,8 +14,6 @@ jobs:
         with:
           node-version: '21'
       - run: npm install
-      - run: npm install
-        working-directory: frontend
       - name: lint
         run: npm run lint
       - name: test frontend
