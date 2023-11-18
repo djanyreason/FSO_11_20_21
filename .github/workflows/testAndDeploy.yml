@@ -16,9 +16,11 @@ jobs:
       - run: npm install
       - name: lint
         run: npm run lint
-      - name: test backend
-        run: npm run test -- tests/*
       - name: test frontend
         run: npm run test:FE
+      - name: test backend
+        run: npm run test -- tests/*
+        env:
+          TEST_BLOGLISTDB_URI: ${{ secrets.TEST_BLOGLISTDB_URI }}
       - name: build
         run: npm run build:ui
