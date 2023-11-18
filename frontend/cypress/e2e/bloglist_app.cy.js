@@ -1,10 +1,11 @@
+/* eslint-disable jest/expect-expect */
 describe('Blog app', function () {
   beforeEach(function () {
     cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`);
     const user = {
       name: 'Foo Bar',
       username: 'foo',
-      password: 'bar',
+      password: 'bar'
     };
     cy.addUser({ credentials: user });
     cy.visit('');
@@ -23,24 +24,24 @@ describe('Blog app', function () {
       cy.get('#username').type('foo');
       cy.get('#password').type('bar');
       cy.get('#login-button').click();
-      
+
       cy.get('.notification')
         .contains('Foo Bar (b)logged in')
         .and('have.css', 'color', 'rgb(0, 128, 0)');
       cy.contains('blogs');
-      cy.get('html').should('not.contain','(b)log in to application')
+      cy.get('html').should('not.contain', '(b)log in to application');
     });
 
     it('fails with incorrect credentials', function () {
       cy.get('#username').type('foo');
       cy.get('#password').type('bard');
       cy.get('#login-button').click();
-      
+
       cy.get('.notification')
         .contains('wrong username or password')
         .and('have.css', 'color', 'rgb(255, 0, 0)');
       cy.contains('(b)log in to application');
-      cy.get('html').should('not.contain','blogs')
+      cy.get('html').should('not.contain', 'blogs');
     });
   });
 
@@ -60,7 +61,7 @@ describe('Blog app', function () {
       cy.get('.notification')
         .contains('a new blog a blog title by a blogger added')
         .and('have.css', 'color', 'rgb(0, 128, 0)');
-      
+
       cy.get('.blogList')
         .should('contain', 'a blog title')
         .and('contain', 'a blogger');
@@ -79,9 +80,7 @@ describe('Blog app', function () {
       cy.get('.likes').contains('likes 0');
       cy.get('.likeButton').click();
 
-      cy.get('.likes')
-        .contains('likes 1')
-        .and('not.contain', 'likes 0');
+      cy.get('.likes').contains('likes 1').and('not.contain', 'likes 0');
     });
 
     describe('and a blog they created in blogList', function () {
@@ -94,7 +93,7 @@ describe('Blog app', function () {
         cy.addBlog({ blogObj: blogObj });
       });
 
-      it('user can delete blog', function() {
+      it('user can delete blog', function () {
         cy.get('.blogList')
           .should('contain', 'a blog title')
           .and('contain', 'a blogger');
@@ -112,15 +111,14 @@ describe('Blog app', function () {
           .and('not.contain', 'a blogger');
       });
 
-      it('only creator can see the remove button', function() {
+      it('only creator can see the remove button', function () {
         cy.get('.blogList')
           .should('contain', 'a blog title')
           .and('contain', 'a blogger');
 
         cy.contains('view').click();
 
-        cy.get('.blogList')
-          .get('.deleteButton');
+        cy.get('.blogList').get('.deleteButton');
 
         const newUser = {
           username: 'barf',
@@ -133,9 +131,7 @@ describe('Blog app', function () {
         cy.contains('view').click();
 
         cy.get('.blogList');
-        cy.get('.blogList')
-          .get('.deleteButton')
-          .should('not.exist');
+        cy.get('.blogList').get('.deleteButton').should('not.exist');
       });
     });
 
@@ -170,7 +166,7 @@ describe('Blog app', function () {
         cy.get('.aBlog').eq(2).should('contain', 'blog three');
       });
 
-      it('blogs reorder correctly when user likes a blog', function() {
+      it('blogs reorder correctly when user likes a blog', function () {
         cy.get('.aBlog').eq(2).contains('view').click();
         cy.get('.aBlog').eq(2).contains('like').click();
 

@@ -53,7 +53,7 @@ describe('<Blog />', () => {
     expect(url).not.toHaveStyle('display: none');
     expect(likes).not.toHaveStyle('display: none');
 
-  })
+  });
 
   test('two like button clicks result in two calls', async () => {
     const mockLikeHandler = jest.fn();
@@ -69,5 +69,5 @@ describe('<Blog />', () => {
     await user.click(likeButton);
 
     expect(mockLikeHandler.mock.calls).toHaveLength(2);
-  })
+  });
 });
