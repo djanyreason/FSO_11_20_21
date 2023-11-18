@@ -24,3 +24,11 @@ jobs:
           TEST_BLOGLISTDB_URI: ${{ secrets.TEST_BLOGLISTDB_URI }}
       - name: build
         run: npm run build:ui
+      - name: e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm run start:test
+          env: 
+            TEST_BLOGLISTDB_URI=${{ secrets.TEST_BLOGLISTDB_URI }}
+          wait-on: 'http://localhost:3003'

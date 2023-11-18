@@ -5,7 +5,8 @@ module.exports = {
 		'es2021': true,
 		'jest': true
 	},
-	'extends': 'eslint:recommended',
+	'extends': [ 'eslint:recommended',
+	'plugin:cypress/recommended'],
 	'overrides': [
 		{
 			'env': {

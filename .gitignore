@@ -6,3 +6,6 @@ build
 /frontend/cypress/screenshots
 /frontend/node_modules
 /frontend/dist
+cypress/fixtures
+cypress/screenshots
+cypress/videos
