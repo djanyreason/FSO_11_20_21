@@ -1,0 +1,11 @@
+/node_modules
+.env
+.eslintignore
+.eslintrc.js
+/requests
+build
+/frontend/.babelrc
+/frontend/cypress/fixtures
+/frontend/cypress/screenshots
+/frontend/node_modules
+/frontend/dist
