@@ -1,5 +1,4 @@
 .eslintignore
-.eslintrc.cjs
 /node_modules
 
 .babelrc

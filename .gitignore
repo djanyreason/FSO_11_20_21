@@ -1,7 +1,6 @@
 /node_modules
 .env
 .eslintignore
-.eslintrc.js
 /requests
 build
 /frontend/.babelrc
