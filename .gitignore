@@ -2,7 +2,6 @@
 .env
 /requests
 build
-/frontend/.babelrc
 /frontend/cypress/fixtures
 /frontend/cypress/screenshots
 /frontend/node_modules
