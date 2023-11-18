@@ -1,0 +1,24 @@
+name: Test and Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+      - run: npm install
+      - name: lint
+        run: npm run lint
+      - name: build
+        run: npm run build:ui
+      - name: test backend
+        run: npm run test -- tests/*
+      - name: test frontend
+        run: npm run test:FE

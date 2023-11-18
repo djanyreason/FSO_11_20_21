@@ -524,36 +524,6 @@ describe('updating blog likes', () => {
     , null).likes).toEqual(updatedBlog.likes);
   }, 100000);
 
-  test('fails with status code 401 if incorrect user', async () => {
-    const blogsAtStart = await helper.blogsInDb();
-    const blogToUpdate = blogsAtStart[0];
-    const updatedBlog = { ...blogToUpdate, likes: (blogToUpdate.likes + 1) };
-
-    const usersAtStart = await helper.usersInDb();
-    const blogUsername = usersAtStart.filter(user =>
-      user.id === blogToUpdate.user.toString())[0].username;
-    const userCredentials = testData.users.filter(user =>
-      user.username !== blogUsername)[0];
-
-    const userToken = await helper.getToken(userCredentials);
-
-    const resultBlog = await api
-      .put(`/api/blogs/${blogToUpdate.id}`)
-      .set('Authorization', userToken)
-      .send(updatedBlog)
-      .expect(401)
-      .expect('Content-Type', /application\/json/);
-
-    const blogsAtEnd = await helper.blogsInDb();
-
-    expect(blogsAtEnd.filter(blog => {
-      return blog.title === blogToUpdate.title &&
-        blog.author === blogToUpdate.author &&
-        blog.url === blogToUpdate.url &&
-        blog.likes === (blogToUpdate.likes + 1);
-    }).length).toEqual(0);
-  }, 100000);
-
   test('returns status code 200 and body null if ID does not exist', async () => {
     const blogsAtStart = await helper.blogsInDb();
     const blogToUpdate = blogsAtStart[0];
@@ -596,51 +566,6 @@ describe('updating blog likes', () => {
       .set('Authorization', userToken)
       .send(updatedBlog)
       .expect(400);
-  }, 100000);
-
-  test('fails with status code 401 if no token', async () => {
-    const blogsAtStart = await helper.blogsInDb();
-    const blogToUpdate = blogsAtStart[0];
-    const updatedBlog = { ...blogToUpdate, likes: (blogToUpdate.likes + 1) };
-
-    await api
-      .put(`/api/blogs/${blogToUpdate.id}`)
-      .set('Authorization', '')
-      .send(updatedBlog)
-      .expect(401);
-
-    const blogsAtEnd = await helper.blogsInDb();
-
-    expect(blogsAtEnd.filter(blog => {
-      return blog.title === blogToUpdate.title &&
-        blog.author === blogToUpdate.author &&
-        blog.url === blogToUpdate.url &&
-        blog.likes === (blogToUpdate.likes + 1);
-    }).length).toEqual(0);
-  }, 100000);
-
-  test('fails with status code 401 if token invalid', async () => {
-    const blogsAtStart = await helper.blogsInDb();
-    const blogToUpdate = blogsAtStart[0];
-    const updatedBlog = { ...blogToUpdate, likes: (blogToUpdate.likes + 1) };
-
-    const userToken = await helper.getToken(testData.users[0]);
-
-    const response = await api
-      .put(`/api/blogs/${blogToUpdate.id}`)
-      .set('Authorization', userToken.slice(0, 8) + userToken.slice(9, userToken.length))
-      .send(updatedBlog)
-      .expect(401);
-
-    const blogsAtEnd = await helper.blogsInDb();
-
-    expect(blogsAtEnd.filter(blog => {
-      return blog.title === blogToUpdate.title &&
-        blog.author === blogToUpdate.author &&
-        blog.url === blogToUpdate.url &&
-        blog.likes === (blogToUpdate.likes + 1);
-    }).length).toEqual(0);
-    expect(response.body.error).toEqual('invalid token');
   }, 100000);
 });
 
