@@ -19,7 +19,7 @@ jobs:
       - name: test frontend
         run: npm run test:FE
       - name: test backend
-        run: npm run test -- tests/*
+        run: npm run test -- tests/*.test.js
         env:
           TEST_BLOGLISTDB_URI: ${{ secrets.TEST_BLOGLISTDB_URI }}
       - name: build
