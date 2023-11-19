@@ -11,9 +11,6 @@ const mongoose = require('mongoose');
 
 mongoose.connect(config.BLOGDB_URI);
 
-console.log(process.env.NODE_ENV);
-console.log(config.BLOGDB_URI.slice(-40));
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static('build'));

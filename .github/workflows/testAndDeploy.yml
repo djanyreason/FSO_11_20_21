@@ -22,6 +22,7 @@ jobs:
         run: npm run test -- tests/*.test.js
         env:
           TEST_BLOGLISTDB_URI: ${{ secrets.TEST_BLOGLISTDB_URI }}
+          SECRET: ${{ secrets.SECRET }}
       - name: build
         run: npm run build:ui
       - name: e2e tests
