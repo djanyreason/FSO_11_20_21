@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test_pipeline:
+  testing_pipeline:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -34,3 +34,20 @@ jobs:
           command: npm run test:e2e
           start: npm run start:test
           wait-on: 'http://localhost:3003'
+
+  deploy_and_tag_release:
+    needs: [testing_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: deploy to fly.io
+        run: flyctl deploy --remote-only
+        env: 
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@a2c70ae13a881faf2b4953baaa9e49731997ab36
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: true
