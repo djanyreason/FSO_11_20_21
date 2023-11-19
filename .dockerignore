@@ -2,4 +2,14 @@ node_modules
 .env
 .eslintignore
 .eslintrc.js
-/requests
+build/
+cypress/
+tests/
+frontend/cypres
+frontend/test
+frontend/dist
+frontend/node_modules
+frontend/.eslintignore
+frontend/.eslintrc.cjs
+.gitignore
+frontend/.gitignore
