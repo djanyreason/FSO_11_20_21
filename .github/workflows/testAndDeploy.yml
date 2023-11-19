@@ -40,6 +40,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+      - run: npm install
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: deploy to fly.io
         run: flyctl deploy --remote-only
