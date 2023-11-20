@@ -4,9 +4,9 @@ node_modules
 .eslintrc.js
 cypress/
 tests/
-frontend/cypress
+frontend/cypres
 frontend/test
-frontend/
+frontend/dist
 frontend/node_modules
 frontend/.eslintignore
 frontend/.eslintrc.cjs
