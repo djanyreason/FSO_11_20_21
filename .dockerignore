@@ -2,7 +2,6 @@ node_modules
 .env
 .eslintignore
 .eslintrc.js
-build/
 cypress/
 tests/
 frontend/cypres
